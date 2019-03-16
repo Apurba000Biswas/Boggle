@@ -6,6 +6,7 @@
 
 #include "Boggle.h"
 #include "random.h"
+#include "grid.h"
 
 // letters on all 6 sides of every cube
 static string CUBES[16] = {
@@ -25,9 +26,25 @@ static string BIG_BOGGLE_CUBES[25] = {
 };
 
 string boardStr;
+string board[4][4];
+
 
 Boggle::Boggle(Lexicon& dictionary, string boardText) {
     boardStr = (boardText.size() == 0)?getRandomBoard():boardText;
+    buildBoard();
+}
+
+void Boggle::buildBoard(){
+    int row = 0;
+    int col = 0;
+    for(int i=0; i<boardStr.size(); i++){
+        if(col >3){
+            col = 0;
+            row++;
+        }
+        board[row][col] = boardStr.at(i);
+        col++;
+    }
 }
 
 string Boggle::getRandomBoard(){

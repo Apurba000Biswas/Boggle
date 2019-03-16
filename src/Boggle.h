@@ -10,6 +10,7 @@
 #include <iostream>
 #include <string>
 #include "lexicon.h"
+#include "grid.h"
 using namespace std;
 
 class Boggle {
@@ -25,12 +26,13 @@ public:
     // TODO: add any other member functions/variables necessary
     friend ostream& operator<<(ostream& out, Boggle& boggle);
     string getBoard();
-
+    string board[4][4];
 
 private:
     // TODO: add any other member functions/variables necessary
     string getRandomBoard();
     string boardStr;
+    void buildBoard();
 };
 
 #endif // _boggle_h

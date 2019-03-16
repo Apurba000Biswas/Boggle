@@ -12,11 +12,13 @@
 #include "simpio.h"
 #include "strlib.h"
 #include "Boggle.h"
+#include "console.h"
 
 using namespace std;
 
 bool isValidBoard(string board);
 string getValidBoard(string enteredBoard);
+void printBoard(string board);
 
 void playOneGame(Lexicon& dictionary) {
     // create gui with 4 by 4 grid
@@ -28,10 +30,21 @@ void playOneGame(Lexicon& dictionary) {
         board = getValidBoard(board);
     }
     Boggle boggle(dictionary, board);
-    BoggleGUI::labelAllCubes(boggle.getBoard());
-    cout<< "Board is: " << board;
+    board = boggle.getBoard();
+    BoggleGUI::labelAllCubes(board);
+    printBoard(board);
 }
 
+void printBoard(string board){
+    clearConsole();
+    cout<< "Its your turn!";
+    for(int i=0; i<board.size(); i++){
+        if(i%4 == 0){
+            cout << endl;
+        }
+        cout << board.at(i);
+    }
+}
 
 string getValidBoard(string enteredBoard){
     while(!isValidBoard(enteredBoard)){
