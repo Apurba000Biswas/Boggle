@@ -5,6 +5,7 @@
 // TODO: remove this comment header
 
 #include "Boggle.h"
+#include "random.h"
 
 // letters on all 6 sides of every cube
 static string CUBES[16] = {
@@ -23,10 +24,30 @@ static string BIG_BOGGLE_CUBES[25] = {
    "FIPRSY", "GORRVW", "HIPRRY", "NOOTUW", "OOOTTU"
 };
 
-Boggle::Boggle(Lexicon& dictionary, string boardText) {
-    // TODO: implement
+string boardStr;
 
+Boggle::Boggle(Lexicon& dictionary, string boardText) {
+    boardStr = (boardText.size() == 0)?getRandomBoard():boardText;
 }
+
+string Boggle::getRandomBoard(){
+    string board = "";
+    for(int i=0; i<16; i++){
+        int randomCubeIndex = randomInteger(0, 15);
+        string randomCube = CUBES[randomCubeIndex];
+        int randomSide = randomInteger(0, 5);
+        char ch = randomCube[randomSide];
+        board += ch;
+    }
+    return board;
+}
+
+string Boggle::getBoard(){
+    return boardStr;
+}
+
+
+
 
 char Boggle::getLetter(int row, int col) {
     // TODO: implement

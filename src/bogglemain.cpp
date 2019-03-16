@@ -31,7 +31,6 @@ static const string DICTIONARY_FILE = "dictionary.txt";
 
 // function prototype declarations
 void playOneGame(Lexicon& dictionary);   // written by you, in boggleplay.cpp
-bool isValidBoard(string board);
 
 int main() {
     cout << "Welcome to CS 106B Boggle!" << endl;

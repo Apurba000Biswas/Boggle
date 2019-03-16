@@ -24,9 +24,13 @@ public:
 
     // TODO: add any other member functions/variables necessary
     friend ostream& operator<<(ostream& out, Boggle& boggle);
+    string getBoard();
+
 
 private:
     // TODO: add any other member functions/variables necessary
+    string getRandomBoard();
+    string boardStr;
 };
 
 #endif // _boggle_h
