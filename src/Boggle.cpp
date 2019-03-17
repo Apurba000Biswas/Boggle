@@ -79,13 +79,8 @@ char Boggle::getLetter(int row, int col) {
 
 bool Boggle::checkWord(string word) {
     word = toLowerCase(word);
-    if(word.size() >= 4){
-        if(dictionary.contains(word)){
-            word = toUpperCase(word);
-            if(!humanWords.contains(word)){
-                return true;
-            }
-        }
+    if(word.size() >= 4 && dictionary.contains(word) && !humanWords.contains(word)){
+        return true;
     }
     return false;
 }

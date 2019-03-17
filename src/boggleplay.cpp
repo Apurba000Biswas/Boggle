@@ -37,6 +37,7 @@ void playOneGame(Lexicon& dictionary) {
     string humansWord = getWordFromHuman(board, boggle);
     if(humansWord.size() != 0){
         // do search
+        cout << "Searching";
     }
 }
 
@@ -53,8 +54,6 @@ string getWordFromHuman(string board, Boggle& boggle){
     }while(humanEnterdWord.size() != 0 && !boggle.checkWord(humanEnterdWord));
     return humanEnterdWord;
 }
-
-
 
 void printBoard(string board, string message){
     clearConsole();
