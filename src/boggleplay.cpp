@@ -18,7 +18,8 @@ using namespace std;
 
 bool isValidBoard(string board);
 string getValidBoard(string enteredBoard);
-void printBoard(string board);
+void printBoard(string board, string message);
+string getWordFromHuman(string board, Boggle& boggle);
 
 void playOneGame(Lexicon& dictionary) {
     // create gui with 4 by 4 grid
@@ -32,12 +33,32 @@ void playOneGame(Lexicon& dictionary) {
     Boggle boggle(dictionary, board);
     board = boggle.getBoard();
     BoggleGUI::labelAllCubes(board);
-    printBoard(board);
+
+    string humansWord = getWordFromHuman(board, boggle);
+    if(humansWord.size() != 0){
+        // do search
+    }
 }
 
-void printBoard(string board){
+string getWordFromHuman(string board, Boggle& boggle){
+    string message = "Its your turn!";
+    Set<string> humanWords = boggle.getHumanWords();
+    string humanEnterdWord;
+    do{
+        printBoard(board, message);
+        cout << "\nYour words (" << humanWords.size() << "): " << humanWords.toString();
+        // TODO show score
+        humanEnterdWord = getLine("\nType a word (or Enter to stop): ");
+        message = "You must enter an unfound 4+ letter word from the dictionary.";
+    }while(humanEnterdWord.size() != 0 && !boggle.checkWord(humanEnterdWord));
+    return humanEnterdWord;
+}
+
+
+
+void printBoard(string board, string message){
     clearConsole();
-    cout<< "Its your turn!";
+    cout<< message;
     for(int i=0; i<board.size(); i++){
         if(i%4 == 0){
             cout << endl;

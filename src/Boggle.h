@@ -27,12 +27,15 @@ public:
     friend ostream& operator<<(ostream& out, Boggle& boggle);
     string getBoard();
     string board[4][4];
+    Set<string> getHumanWords();
 
 private:
     // TODO: add any other member functions/variables necessary
     string getRandomBoard();
     string boardStr;
     void buildBoard();
+    Set<string> humanWords;
+    Lexicon dictionary;
 };
 
 #endif // _boggle_h

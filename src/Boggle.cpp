@@ -27,9 +27,11 @@ static string BIG_BOGGLE_CUBES[25] = {
 
 string boardStr;
 string board[4][4];
-
+Set<string> humanWords;
+Lexicon dictionary;
 
 Boggle::Boggle(Lexicon& dictionary, string boardText) {
+    this->dictionary = dictionary;
     boardStr = (boardText.size() == 0)?getRandomBoard():boardText;
     buildBoard();
 }
@@ -63,6 +65,10 @@ string Boggle::getBoard(){
     return boardStr;
 }
 
+Set<string> Boggle::getHumanWords(){
+    return humanWords;
+}
+
 
 
 
@@ -72,8 +78,16 @@ char Boggle::getLetter(int row, int col) {
 }
 
 bool Boggle::checkWord(string word) {
-    // TODO: implement
-    return false;   // remove this
+    word = toLowerCase(word);
+    if(word.size() >= 4){
+        if(dictionary.contains(word)){
+            word = toUpperCase(word);
+            if(!humanWords.contains(word)){
+                return true;
+            }
+        }
+    }
+    return false;
 }
 
 bool Boggle::humanWordSearch(string word) {
