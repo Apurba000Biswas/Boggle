@@ -38,6 +38,7 @@ void playOneGame(Lexicon& dictionary) {
     if(humansWord.size() != 0){
         // do search
         cout << "Searching";
+        boggle.humanWordSearch(humansWord);
     }
 }
 

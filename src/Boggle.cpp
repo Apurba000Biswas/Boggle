@@ -3,7 +3,7 @@
 // but you must finish it as described in the spec.
 // Also remove these comments here and add your own.
 // TODO: remove this comment header
-
+#include<string>
 #include "Boggle.h"
 #include "random.h"
 #include "grid.h"
@@ -86,9 +86,32 @@ bool Boggle::checkWord(string word) {
 }
 
 bool Boggle::humanWordSearch(string word) {
-    // TODO: implement
+    //
+    //for each row and collumn call helper to find the word in that index based
+    for(int row=0; row<4; row++){
+        for(int col=0; col<4; col++){
+            //
+            Set<string> usedIndecies;
+            string currIndex = to_string(row) + to_string(col);
+            usedIndecies.add(currIndex);
+            humanWordSearchHelper(word, row, col, usedIndecies);
+            usedIndecies.clear();
+        }
+    }
     return false;   // remove this
 }
+
+
+bool Boggle::humanWordSearchHelper(string word, int row, int col, Set<string> usedIndecies){
+    cout << usedIndecies.toString();
+    return false;
+}
+
+
+
+
+
+
 
 int Boggle::getScoreHuman() {
     // TODO: implement

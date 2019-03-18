@@ -32,6 +32,7 @@ public:
 private:
     // TODO: add any other member functions/variables necessary
     string getRandomBoard();
+    bool humanWordSearchHelper(string word, int row, int col, Set<string> usedIndecies);
     string boardStr;
     void buildBoard();
     Set<string> humanWords;
