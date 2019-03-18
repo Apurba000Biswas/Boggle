@@ -7,6 +7,7 @@
 #include "Boggle.h"
 #include "random.h"
 #include "grid.h"
+#include "bogglegui.h"
 
 // letters on all 6 sides of every cube
 static string CUBES[16] = {
@@ -79,32 +80,58 @@ char Boggle::getLetter(int row, int col) {
 
 bool Boggle::checkWord(string word) {
     word = toLowerCase(word);
-    if(word.size() >= 4 && dictionary.contains(word) && !humanWords.contains(word)){
-        return true;
+    if(word.size() >= 4 && dictionary.contains(word)){
+        word = toUpperCase(word);
+        if(!humanWords.contains(word)){
+            return true;
+        }
     }
     return false;
 }
 
 bool Boggle::humanWordSearch(string word) {
-    //
+    bool result = false;
     //for each row and collumn call helper to find the word in that index based
     for(int row=0; row<4; row++){
         for(int col=0; col<4; col++){
-            //
+            BoggleGUI::clearHighlighting();
             Set<string> usedIndecies;
             string currIndex = to_string(row) + to_string(col);
             usedIndecies.add(currIndex);
-            humanWordSearchHelper(word, row, col, usedIndecies);
+            result = humanWordSearchHelper(word, row, col, usedIndecies);
             usedIndecies.clear();
         }
     }
-    return false;   // remove this
+    return result;
 }
 
-
+// abcdefghijklmnop
 bool Boggle::humanWordSearchHelper(string word, int row, int col, Set<string> usedIndecies){
-    cout << usedIndecies.toString();
-    return false;
+    cout << "\nWord is : " << word;
+    if(word.size() == 0){
+        // ok we have found our word
+        return true;
+    }else {
+        BoggleGUI::setHighlighted(row, col, true);
+        BoggleGUI::setAnimationDelay(200);
+        string s = board[row][col];
+        if( word[0] == s[0]){
+            cout << "Ok matched for : " << s;
+            // cut the first letter off from the word
+            word = getRecycledWord(word);
+            return humanWordSearchHelper(word, row, col, usedIndecies);
+        }else{
+            return false;
+        }
+    }
+}
+
+string Boggle::getRecycledWord(string word){
+    string recycledWord = "";
+    for(int i=1; i<word.size(); i++){
+        recycledWord += word[i];
+    }
+    return recycledWord;
 }
 
 

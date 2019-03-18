@@ -53,7 +53,7 @@ string getWordFromHuman(string board, Boggle& boggle){
         humanEnterdWord = getLine("\nType a word (or Enter to stop): ");
         message = "You must enter an unfound 4+ letter word from the dictionary.";
     }while(humanEnterdWord.size() != 0 && !boggle.checkWord(humanEnterdWord));
-    return humanEnterdWord;
+    return toUpperCase(humanEnterdWord);
 }
 
 void printBoard(string board, string message){
