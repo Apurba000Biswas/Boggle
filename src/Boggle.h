@@ -39,6 +39,7 @@ private:
     Set<string> humanWords;
     Lexicon dictionary;
     int humanScore;
+    void updateHumanScore(string word);
 };
 
 #endif // _boggle_h

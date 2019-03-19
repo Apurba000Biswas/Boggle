@@ -105,6 +105,7 @@ bool Boggle::humanWordSearch(string word) {
             result = humanWordSearchHelper(word, row, col, usedIndecies);
             if(result){
                 humanWords.add(word);
+                updateHumanScore(word);
                 return true;
             }
             usedIndecies.clear();
@@ -113,12 +114,39 @@ bool Boggle::humanWordSearch(string word) {
     return result;
 }
 
-
+void Boggle::updateHumanScore(string word){
+    int length = word.size();
+    switch (length) {
+        case 4:
+            humanScore = humanScore+1;
+            break;
+        case 5:
+            humanScore = humanScore+2;
+            break;
+        case 6:
+            humanScore = humanScore+3;
+            break;
+        case 7:
+            humanScore = humanScore+4;
+            break;
+        case 8:
+            humanScore = humanScore+5;
+            break;
+        case 9:
+            humanScore = humanScore+6;
+            break;
+        case 10:
+            humanScore = humanScore+7;
+            break;
+        default:
+            humanScore = humanScore+7;
+            break;
+    }
+}
 
 
 // abcdefghijklmnop
 bool Boggle::humanWordSearchHelper(string word, int row, int col, Set<string>& usedIndecies){
-    usedIndecies.add(to_string(row) + to_string(col));
     bool result = false;
     if(word.size() == 0){
         BoggleGUI::setHighlighted(row, col, false);
@@ -128,6 +156,7 @@ bool Boggle::humanWordSearchHelper(string word, int row, int col, Set<string>& u
         if( word[0] == s[0]){
             word = getRecycledWord(word);
             BoggleGUI::setHighlighted(row, col, true);
+            usedIndecies.add(to_string(row) + to_string(col));
             for(int i=-1; i<2; i++){
                 for(int j=-1; j<2; j++){
                     if(row+i>=0 && col+j>=0 && row+i<4 && col+j<4){
@@ -144,7 +173,9 @@ bool Boggle::humanWordSearchHelper(string word, int row, int col, Set<string>& u
                     }
                 }
             }
+            // un choose
             BoggleGUI::setHighlighted(row, col, false);
+            usedIndecies.remove(to_string(row) + to_string(col));
         }
     }
     return result;
@@ -168,8 +199,7 @@ string Boggle::getRecycledWord(string word){
 
 
 int Boggle::getScoreHuman() {
-    // TODO: implement
-    return 0;   // remove this
+    return humanScore;   // remove this
 }
 
 Set<string> Boggle::computerWordSearch() {
