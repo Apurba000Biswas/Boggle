@@ -19,7 +19,7 @@ using namespace std;
 bool isValidBoard(string board);
 string getValidBoard(string enteredBoard);
 void printBoard(string board, string message);
-string getWordFromHuman(string board, Boggle& boggle);
+string getWordFromHuman(string board, Boggle& boggle, string message);
 
 void playOneGame(Lexicon& dictionary) {
     // create gui with 4 by 4 grid
@@ -37,18 +37,17 @@ void playOneGame(Lexicon& dictionary) {
     board = boggle.getBoard();
     BoggleGUI::labelAllCubes(board);
 
-    string humansWord = getWordFromHuman(board, boggle);
-    if(humansWord.size() != 0){
+    string humansWord = getWordFromHuman(board, boggle, "Its your turn!");
+    while(humansWord.size() != 0){
         // do search
-        cout << "Searching ";
-        if(boggle.humanWordSearch(humansWord)){
-            cout << "Found";
-        }
+        bool searchResult = boggle.humanWordSearch(humansWord);
+        string message = (searchResult)?"You found a new word!'" + humansWord + "'"
+                                       :"That word can't be formed on this board." ;
+        humansWord = getWordFromHuman(board, boggle, message);
     }
 }
 
-string getWordFromHuman(string board, Boggle& boggle){
-    string message = "Its your turn!";
+string getWordFromHuman(string board, Boggle& boggle, string message){
     Set<string> humanWords = boggle.getHumanWords();
     string humanEnterdWord;
     do{

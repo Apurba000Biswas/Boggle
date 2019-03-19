@@ -30,11 +30,13 @@ string boardStr;
 string board[4][4];
 Set<string> humanWords;
 Lexicon dictionary;
+int humanScore;
 
 Boggle::Boggle(Lexicon& dictionary, string boardText) {
     this->dictionary = dictionary;
     boardStr = (boardText.size() == 0)?getRandomBoard():boardText;
     buildBoard();
+    humanScore = 0;
 }
 
 void Boggle::buildBoard(){
@@ -102,6 +104,7 @@ bool Boggle::humanWordSearch(string word) {
             usedIndecies.add(to_string(row) + to_string(col));
             result = humanWordSearchHelper(word, row, col, usedIndecies);
             if(result){
+                humanWords.add(word);
                 return true;
             }
             usedIndecies.clear();
@@ -109,6 +112,9 @@ bool Boggle::humanWordSearch(string word) {
     }
     return result;
 }
+
+
+
 
 // abcdefghijklmnop
 bool Boggle::humanWordSearchHelper(string word, int row, int col, Set<string>& usedIndecies){

@@ -38,6 +38,7 @@ private:
     void buildBoard();
     Set<string> humanWords;
     Lexicon dictionary;
+    int humanScore;
 };
 
 #endif // _boggle_h
