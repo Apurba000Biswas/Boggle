@@ -20,6 +20,8 @@ bool isValidBoard(string board);
 string getValidBoard(string enteredBoard);
 void printBoard(string board, string message);
 string getWordFromHuman(string board, Boggle& boggle, string message);
+void playWithHuman(string board, Boggle& boggle);
+void playWithComputer(Boggle& boggle);
 
 void playOneGame(Lexicon& dictionary) {
     // create gui with 4 by 4 grid
@@ -37,6 +39,18 @@ void playOneGame(Lexicon& dictionary) {
     board = boggle.getBoard();
     BoggleGUI::labelAllCubes(board);
 
+    //playWithHuman(board, boggle);
+    playWithComputer(boggle);
+}
+
+void playWithComputer(Boggle& boggle){
+    cout << "Its my turn!" << endl;
+    Set<string> allWords = boggle.computerWordSearch();
+    cout<< allWords.toString();
+}
+
+
+void playWithHuman(string board, Boggle& boggle){
     string humansWord = getWordFromHuman(board, boggle, "Its your turn!");
     while(humansWord.size() != 0){
         // do search
@@ -47,13 +61,13 @@ void playOneGame(Lexicon& dictionary) {
     }
 }
 
+
 string getWordFromHuman(string board, Boggle& boggle, string message){
     Set<string> humanWords = boggle.getHumanWords();
     string humanEnterdWord;
     do{
         printBoard(board, message);
         cout << "\nYour words (" << humanWords.size() << "): " << humanWords.toString()<<endl;
-        // TODO show score
         cout << "Your score: " << boggle.getScoreHuman();
         humanEnterdWord = getLine("\nType a word (or Enter to stop): ");
         message = "You must enter an unfound 4+ letter word from the dictionary.";
