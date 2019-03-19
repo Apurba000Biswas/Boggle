@@ -1,8 +1,3 @@
-// This is a .h file you will edit and turn in.
-// We have provided a skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header
 
 #ifndef _boggle_h
 #define _boggle_h
@@ -23,14 +18,12 @@ public:
     int getScoreHuman();
     int getScoreComputer();
 
-    // TODO: add any other member functions/variables necessary
     friend ostream& operator<<(ostream& out, Boggle& boggle);
     string getBoard();
     string board[4][4];
     Set<string> getHumanWords();
 
 private:
-    // TODO: add any other member functions/variables necessary
     string getRandomBoard();
     bool humanWordSearchHelper(string word, int row, int col, Set<string>& usedIndecies);
     string getRecycledWord(string word);

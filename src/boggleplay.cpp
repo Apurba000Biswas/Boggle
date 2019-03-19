@@ -1,8 +1,3 @@
-// This is a .cpp file you will edit and turn in.
-// We have provided a skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header
 
 #include <string>
 #include<stdio.h>
@@ -22,13 +17,12 @@ void printBoard(string board, string message);
 string getWordFromHuman(string board, Boggle& boggle, string message);
 int playWithHuman(string board, Boggle& boggle);
 int playWithComputer(Boggle& boggle);
+void recordAllWordsOnGUI(Set<string>& allWords);
 
 void playOneGame(Lexicon& dictionary) {
-    // create gui with 4 by 4 grid
     BoggleGUI::initialize(4,4);
     string board;
     if(!getYesOrNo("Do you want to generate a random board?")){
-        // get board from user
         board = getLine("Type the 16 letters to appear on the board:");
         board = getValidBoard(board);
     }
@@ -53,7 +47,15 @@ int playWithComputer(Boggle& boggle){
     cout << allWords.toString() << endl;
     int score = boggle.getScoreComputer();
     cout << "My score: " << score << endl;
+    BoggleGUI::setScore(score, BoggleGUI::COMPUTER);
+    recordAllWordsOnGUI(allWords);
     return score;
+}
+
+void recordAllWordsOnGUI(Set<string>& allWords){
+    for(string word : allWords){
+        BoggleGUI::recordWord(word, BoggleGUI::COMPUTER);
+    }
 }
 
 
@@ -64,6 +66,9 @@ int playWithHuman(string board, Boggle& boggle){
         bool searchResult = boggle.humanWordSearch(humansWord);
         string message = (searchResult)?"You found a new word!'" + humansWord + "'"
                                        :"That word can't be formed on this board." ;
+        if(searchResult){
+            BoggleGUI::recordWord(humansWord, BoggleGUI::HUMAN);
+        }
         humansWord = getWordFromHuman(board, boggle, message);
     }
     return  boggle.getScoreHuman();
@@ -77,6 +82,7 @@ string getWordFromHuman(string board, Boggle& boggle, string message){
         printBoard(board, message);
         cout << "\nYour words (" << humanWords.size() << "): " << humanWords.toString()<<endl;
         cout << "Your score: " << boggle.getScoreHuman();
+        BoggleGUI::setScore(boggle.getScoreHuman(), BoggleGUI::HUMAN);
         humanEnterdWord = getLine("\nType a word (or Enter to stop): ");
         message = "You must enter an unfound 4+ letter word from the dictionary.";
     }while(humanEnterdWord.size() != 0 && !boggle.checkWord(humanEnterdWord));

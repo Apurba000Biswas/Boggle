@@ -1,8 +1,4 @@
-// This is a .cpp file you will edit and turn in.
-// We have provided a skeleton for you,
-// but you must finish it as described in the spec.
-// Also remove these comments here and add your own.
-// TODO: remove this comment header
+
 #include<string>
 #include "Boggle.h"
 #include "random.h"
@@ -74,12 +70,8 @@ Set<string> Boggle::getHumanWords(){
     return humanWords;
 }
 
-
-
-
 char Boggle::getLetter(int row, int col) {
-    // TODO: implement
-    return '?';   // remove this
+    return '?';
 }
 
 bool Boggle::checkWord(string word) {
@@ -181,9 +173,6 @@ bool Boggle::humanWordSearchHelper(string word, int row, int col, Set<string>& u
     return result;
 }
 
-
-
-
 string Boggle::getRecycledWord(string word){
     string recycledWord = "";
     for(int i=1; i<word.size(); i++){
@@ -192,15 +181,11 @@ string Boggle::getRecycledWord(string word){
     return recycledWord;
 }
 
-
-
-
-
-
-
 int Boggle::getScoreHuman() {
     return humanScore;
 }
+
+
 
 Set<string> Boggle::computerWordSearch() {
     Set<string> result;
@@ -286,15 +271,10 @@ void Boggle::updateComputerScore(int wordLength){
     }
 }
 
-
-
-
-
 int Boggle::getScoreComputer() {
     return computerScore;
 }
 
 ostream& operator<<(ostream& out, Boggle& boggle) {
-    // TODO: implement
     return out;
 }
