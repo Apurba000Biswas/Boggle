@@ -33,7 +33,7 @@ void playOneGame(Lexicon& dictionary) {
     int humanScore = playWithHuman(board, boggle);
     int computerScore = playWithComputer(boggle);
     string message = (computerScore > humanScore) ? "Ha ha ha, I destroyed you. Better luck next time, puny human!"
-            : "Ok You did a good job!";
+            : "WOW, you defeated me! Congratulations!";
     cout << message << endl;
     BoggleGUI::setStatusMessage(message);
 }
