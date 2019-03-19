@@ -27,29 +27,27 @@ void playOneGame(Lexicon& dictionary) {
     // create gui with 4 by 4 grid
     BoggleGUI::initialize(4,4);
     string board;
-    /*
     if(!getYesOrNo("Do you want to generate a random board?")){
         // get board from user
         board = getLine("Type the 16 letters to appear on the board:");
         board = getValidBoard(board);
     }
-    */
-    board = "OAHLLOYCEEDNQENA";
     Boggle boggle(dictionary, board);
     board = boggle.getBoard();
     BoggleGUI::labelAllCubes(board);
 
     int humanScore = playWithHuman(board, boggle);
     int computerScore = playWithComputer(boggle);
-    if(computerScore > humanScore){
-        cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
-    }else{
-        cout << "Ok You did a good job!" << endl;
-    }
+    string message = (computerScore > humanScore) ? "Ha ha ha, I destroyed you. Better luck next time, puny human!"
+            : "Ok You did a good job!";
+    cout << message << endl;
+    BoggleGUI::setStatusMessage(message);
 }
 
 int playWithComputer(Boggle& boggle){
     cout << "Its my turn!" << endl;
+    BoggleGUI::setStatusMessage("Its my turn!");
+    BoggleGUI::clearHighlighting();
     Set<string> allWords = boggle.computerWordSearch();
     cout << "My Words (" << allWords.size() << "): ";
     cout << allWords.toString() << endl;
@@ -88,6 +86,7 @@ string getWordFromHuman(string board, Boggle& boggle, string message){
 void printBoard(string board, string message){
     clearConsole();
     cout<< message;
+    BoggleGUI::setStatusMessage(message);
     for(int i=0; i<board.size(); i++){
         if(i%4 == 0){
             cout << endl;
