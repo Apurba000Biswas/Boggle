@@ -96,9 +96,11 @@ bool Boggle::humanWordSearch(string word) {
         for(int col=0; col<4; col++){
             BoggleGUI::clearHighlighting();
             Set<string> usedIndecies;
-            string currIndex = to_string(row) + to_string(col);
-            usedIndecies.add(currIndex);
+            usedIndecies.add(to_string(row) + to_string(col));
             result = humanWordSearchHelper(word, row, col, usedIndecies);
+            if(result){
+                return true;
+            }
             usedIndecies.clear();
         }
     }
@@ -106,25 +108,46 @@ bool Boggle::humanWordSearch(string word) {
 }
 
 // abcdefghijklmnop
-bool Boggle::humanWordSearchHelper(string word, int row, int col, Set<string> usedIndecies){
-    cout << "\nWord is : " << word;
+bool Boggle::humanWordSearchHelper(string word, int row, int col, Set<string>& usedIndecies){
+
+    usedIndecies.add(to_string(row) + to_string(col));
+    bool result = false;
     if(word.size() == 0){
-        // ok we have found our word
+        BoggleGUI::setHighlighted(row, col, false);
         return true;
     }else {
-        BoggleGUI::setHighlighted(row, col, true);
-        BoggleGUI::setAnimationDelay(200);
         string s = board[row][col];
         if( word[0] == s[0]){
-            cout << "Ok matched for : " << s;
-            // cut the first letter off from the word
             word = getRecycledWord(word);
-            return humanWordSearchHelper(word, row, col, usedIndecies);
-        }else{
-            return false;
+            BoggleGUI::setHighlighted(row, col, true);
+            for(int i=-1; i<2; i++){
+                for(int j=-1; j<2; j++){
+                    if(row+i>=0 && col+j>=0 && row+i<4 && col+j<4){
+                        // choose
+                        BoggleGUI::setHighlighted(row+i, col+j, true);
+                        BoggleGUI::setAnimationDelay(100);
+                        BoggleGUI::setHighlighted(row+i, col+j, false);
+                        string index = to_string(row+i) + to_string(col+j);
+
+                        // explore
+                        if(!usedIndecies.contains(index)){
+                            result = humanWordSearchHelper(word, row+i, col+j, usedIndecies);
+                            if(result){
+                                BoggleGUI::setHighlighted(row, col, true);
+                                return result;
+                            }
+                        }
+                    }
+                }
+            }
+            BoggleGUI::setHighlighted(row, col, false);
         }
     }
+    return result;
 }
+
+
+
 
 string Boggle::getRecycledWord(string word){
     string recycledWord = "";

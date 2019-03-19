@@ -25,11 +25,14 @@ void playOneGame(Lexicon& dictionary) {
     // create gui with 4 by 4 grid
     BoggleGUI::initialize(4,4);
     string board;
+    /*
     if(!getYesOrNo("Do you want to generate a random board?")){
         // get board from user
         board = getLine("Type the 16 letters to appear on the board:");
         board = getValidBoard(board);
     }
+    */
+    board = "ABCDEFGHIJKLMNOP";
     Boggle boggle(dictionary, board);
     board = boggle.getBoard();
     BoggleGUI::labelAllCubes(board);
@@ -37,8 +40,10 @@ void playOneGame(Lexicon& dictionary) {
     string humansWord = getWordFromHuman(board, boggle);
     if(humansWord.size() != 0){
         // do search
-        cout << "Searching";
-        boggle.humanWordSearch(humansWord);
+        cout << "Searching ";
+        if(boggle.humanWordSearch(humansWord)){
+            cout << "Found";
+        }
     }
 }
 
