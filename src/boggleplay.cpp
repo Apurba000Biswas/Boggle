@@ -20,8 +20,8 @@ bool isValidBoard(string board);
 string getValidBoard(string enteredBoard);
 void printBoard(string board, string message);
 string getWordFromHuman(string board, Boggle& boggle, string message);
-void playWithHuman(string board, Boggle& boggle);
-void playWithComputer(Boggle& boggle);
+int playWithHuman(string board, Boggle& boggle);
+int playWithComputer(Boggle& boggle);
 
 void playOneGame(Lexicon& dictionary) {
     // create gui with 4 by 4 grid
@@ -39,19 +39,27 @@ void playOneGame(Lexicon& dictionary) {
     board = boggle.getBoard();
     BoggleGUI::labelAllCubes(board);
 
-    //playWithHuman(board, boggle);
-    playWithComputer(boggle);
+    int humanScore = playWithHuman(board, boggle);
+    int computerScore = playWithComputer(boggle);
+    if(computerScore > humanScore){
+        cout << "Ha ha ha, I destroyed you. Better luck next time, puny human!" << endl;
+    }else{
+        cout << "Ok You did a good job!" << endl;
+    }
 }
 
-void playWithComputer(Boggle& boggle){
+int playWithComputer(Boggle& boggle){
     cout << "Its my turn!" << endl;
     Set<string> allWords = boggle.computerWordSearch();
     cout << "My Words (" << allWords.size() << "): ";
-    cout<< allWords.toString();
+    cout << allWords.toString() << endl;
+    int score = boggle.getScoreComputer();
+    cout << "My score: " << score << endl;
+    return score;
 }
 
 
-void playWithHuman(string board, Boggle& boggle){
+int playWithHuman(string board, Boggle& boggle){
     string humansWord = getWordFromHuman(board, boggle, "Its your turn!");
     while(humansWord.size() != 0){
         // do search
@@ -60,6 +68,7 @@ void playWithHuman(string board, Boggle& boggle){
                                        :"That word can't be formed on this board." ;
         humansWord = getWordFromHuman(board, boggle, message);
     }
+    return  boggle.getScoreHuman();
 }
 
 

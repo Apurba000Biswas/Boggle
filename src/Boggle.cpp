@@ -38,6 +38,7 @@ Boggle::Boggle(Lexicon& dictionary, string boardText) {
     boardStr = (boardText.size() == 0)?getRandomBoard():boardText;
     buildBoard();
     humanScore = 0;
+    computerScore = 0;
 }
 
 void Boggle::buildBoard(){
@@ -219,6 +220,7 @@ void Boggle::buildAllWords(string word, int row, int col,
     if(dictionary.containsPrefix(word)){
         if(isValidWord(word, result)){
             result.add(word);
+            updateComputerScore(word.size());
         }
         usedIndecies.add(to_string(row) + to_string(col));
         string newWord = word;
@@ -255,14 +257,41 @@ bool Boggle::isValidWord(string word, Set<string>& result){
     return false;
 }
 
+void Boggle::updateComputerScore(int wordLength){
+    switch (wordLength) {
+        case 4:
+            computerScore = computerScore+1;
+            break;
+        case 5:
+            computerScore = computerScore+2;
+            break;
+        case 6:
+            computerScore = computerScore+3;
+            break;
+        case 7:
+            computerScore = computerScore+4;
+            break;
+        case 8:
+            computerScore = computerScore+5;
+            break;
+        case 9:
+            computerScore = computerScore+6;
+            break;
+        case 10:
+            computerScore = computerScore+7;
+            break;
+        default:
+            computerScore = computerScore+7;
+            break;
+    }
+}
 
 
 
 
 
 int Boggle::getScoreComputer() {
-    // TODO: implement
-    return 0;   // remove this
+    return computerScore;
 }
 
 ostream& operator<<(ostream& out, Boggle& boggle) {

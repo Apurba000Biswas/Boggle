@@ -43,6 +43,7 @@ private:
     void buildAllWords(string word, int row, int col, Set<string>& result, Set<string>& usedIndecies);
     bool isValidWord(string word, Set<string>& result);
     int computerScore;
+    void updateComputerScore(int wordLength);
 };
 
 #endif // _boggle_h
