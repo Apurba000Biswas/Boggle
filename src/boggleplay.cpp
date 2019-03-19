@@ -34,7 +34,7 @@ void playOneGame(Lexicon& dictionary) {
         board = getValidBoard(board);
     }
     */
-    board = "ABCDEFGHIJKLMNOP";
+    board = "OAHLLOYCEEDNQENA";
     Boggle boggle(dictionary, board);
     board = boggle.getBoard();
     BoggleGUI::labelAllCubes(board);
@@ -46,6 +46,7 @@ void playOneGame(Lexicon& dictionary) {
 void playWithComputer(Boggle& boggle){
     cout << "Its my turn!" << endl;
     Set<string> allWords = boggle.computerWordSearch();
+    cout << "My Words (" << allWords.size() << "): ";
     cout<< allWords.toString();
 }
 

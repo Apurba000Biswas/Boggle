@@ -31,6 +31,7 @@ string board[4][4];
 Set<string> humanWords;
 Lexicon dictionary;
 int humanScore;
+int computerScore;
 
 Boggle::Boggle(Lexicon& dictionary, string boardText) {
     this->dictionary = dictionary;
@@ -144,8 +145,6 @@ void Boggle::updateHumanScore(string word){
     }
 }
 
-
-// abcdefghijklmnop
 bool Boggle::humanWordSearchHelper(string word, int row, int col, Set<string>& usedIndecies){
     bool result = false;
     if(word.size() == 0){
@@ -199,14 +198,67 @@ string Boggle::getRecycledWord(string word){
 
 
 int Boggle::getScoreHuman() {
-    return humanScore;   // remove this
+    return humanScore;
 }
 
 Set<string> Boggle::computerWordSearch() {
-    // TODO: implement
-    Set<string> result;   // remove this
-    return result;        // remove this
+    Set<string> result;
+    Set<string> usedIndecies;
+    for(int row=0; row<4; row++){
+        for(int col=0; col<4; col++){
+            usedIndecies.add(to_string(row) + to_string(col));
+            buildAllWords(board[row][col], row, col, result, usedIndecies);
+        }
+    }
+    return result;
 }
+
+void Boggle::buildAllWords(string word, int row, int col,
+                                      Set<string>& result,
+                                      Set<string>& usedIndecies ){
+    if(dictionary.containsPrefix(word)){
+        if(isValidWord(word, result)){
+            result.add(word);
+        }
+        usedIndecies.add(to_string(row) + to_string(col));
+        string newWord = word;
+        for(int i=-1; i<2; i++){
+            for(int j=-1; j<2; j++){
+                if(row+i>=0 && col+j>=0 && row+i<4 && col+j<4){
+                    // choose
+                    string index = to_string(row+i) + to_string(col+j);
+
+                    // explore
+                    if(!usedIndecies.contains(index)){
+                        string boardLetter = board[row+i][col+j];
+                        newWord += boardLetter;
+                        buildAllWords(newWord, row+i, col+j, result, usedIndecies);
+                    }
+                    newWord = word;
+                }
+            }
+        }
+        // un choose
+        usedIndecies.remove(to_string(row) + to_string(col));
+    }// else
+          // base case
+}
+
+bool Boggle::isValidWord(string word, Set<string>& result){
+    word = toLowerCase(word);
+    if(word.size() >= 4 && dictionary.contains(word)){
+        word = toUpperCase(word);
+        if(!result.contains(word)){
+            return true;
+        }
+    }
+    return false;
+}
+
+
+
+
+
 
 int Boggle::getScoreComputer() {
     // TODO: implement

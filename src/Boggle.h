@@ -40,6 +40,9 @@ private:
     Lexicon dictionary;
     int humanScore;
     void updateHumanScore(string word);
+    void buildAllWords(string word, int row, int col, Set<string>& result, Set<string>& usedIndecies);
+    bool isValidWord(string word, Set<string>& result);
+    int computerScore;
 };
 
 #endif // _boggle_h
