@@ -16,19 +16,19 @@ If you want you can watch the full video on [Youtube](https://www.youtube.com/wa
 
 ### Game preview:
 <div align="center">
-  <img src ="b_1.png" width ="600">
+  <img src ="b_1.png" width ="700">
 </div>
 <div align="center">
-  <img src ="b_2.png" width ="600">
+  <img src ="b_2.png" width ="700">
 </div>
 <div align="center">
-  <img src ="b_3.png" width ="600">
+  <img src ="b_3.png" width ="700">
 </div>
 <div align="center">
-  <img src ="b_4.png" width ="600">
+  <img src ="b_4.png" width ="700">
 </div>
 <div align="center">
-  <img src ="b_5.png" width ="600">
+  <img src ="b_5.png" width ="700">
 </div>
 
 #### NOTE : If you are Stanford CS 106B Student, Please Dont See the Source code. If you do you will violate the HONOR CODE
