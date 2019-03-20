@@ -13,8 +13,6 @@ http://web.stanford.edu/class/archive/cs/cs106b/cs106b.1172//assn/boggle.html
 If you want you can watch the full video on [Youtube](https://www.youtube.com/watch?v=t7U6HJWKkW4&t=41s)
 
 ### Screen Shots:
-
-### Game preview:
 <div align="center">
   <img src ="b_1.png" width ="700">
 </div>
