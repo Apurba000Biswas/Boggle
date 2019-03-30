@@ -5,6 +5,12 @@ Its a simple game that offers to generate words from a random board to both huma
 For more info and problem documentation:
 http://web.stanford.edu/class/archive/cs/cs106b/cs106b.1172//assn/boggle.html
 
+My sollution added on the following files:
+
+[boggleplay.cpp](https://github.com/Apurba000Biswas/Boggle/blob/master/src/boggleplay.cpp)
+
+[Boggle.cpp](https://github.com/Apurba000Biswas/Boggle/blob/master/src/Boggle.cpp)
+
 ### Game preview:
 <div align="center">
   <img src ="boggle.gif" width ="800">
